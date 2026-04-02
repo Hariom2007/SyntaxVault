@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyntaxVault</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <i class='bx bx-code-alt'></i>
+                    <h2>Syntax<span class="neon-text">Vault</span></h2>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button id="add-new-btn" class="icon-btn tooltip" data-tooltip="Add New">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                    <button id="menu-btn" class="icon-btn mobile-toggle">
+                        <i class='bx bx-menu'></i>
+                    </button>
+                </div>
+            </div>
+            <div class="search-bar">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search snippets...">
+            </div>
+            <ul id="snippet-list" class="snippet-list">
+                <li class="snippet-item active">
+                    <div class="snippet-info">
+                        <h4>Example: Modern Button</h4>
+                        <span class="tag tag-css">CSS</span>
+                    </div>
+                    <i class='bx bx-chevron-right arrow-icon'></i>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>by HariCodes</p>
+            </div>
+        </aside>
+
+        <main class="editor-area">
+            <header class="editor-header">
+                <input type="text" id="snippet-title" placeholder="Untitled Snippet" value="Example: Modern Button">
+                <div class="header-actions">
+                    <select id="language-select">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">JavaScript</option>
+                    </select>
+                    <button id="save-btn" class="primary-btn pulse-anim">
+                        <i class='bx bx-save'></i> Save
+                    </button>
+                    <button id="copy-btn" class="icon-btn-secondary tooltip" data-tooltip="Copy Code">
+                        <i class='bx bx-copy'></i>
+                    </button>
+                    <button id="download-btn" class="icon-btn-secondary tooltip" data-tooltip="Download File">
+                        <i class='bx bx-download'></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="code-workspace">
+                <div class="editor-pane">
+                    <textarea id="code-editor" spellcheck="false"
+                        placeholder="// Paste or type your code here..."></textarea>
+                    <pre id="highlighting-container"
+                        aria-hidden="true"><code id="highlighting-content" class="language-css"></code></pre>
+                </div>
+
+                <div class="preview-pane">
+                    <div class="preview-header">
+                        <span class="preview-title"><i class='bx bx-play-circle'></i> Output</span>
+                        <button id="run-btn" class="primary-btn pulse-anim">
+                            <i class='bx bx-play'></i> Run Code
+                        </button>
+                    </div>
+                    <iframe id="preview-frame" title="Live Preview"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</body>
+
+</html>

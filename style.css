@@ -1,0 +1,606 @@
+/* Color Palette & Modern Variables */
+:root {
+    --bg-dark: #07090b;
+    /* Extra dark */
+    --bg-panel: rgba(22, 27, 34, 0.7);
+    /* Translucent */
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    --accent-neon: #00e676;
+    /* Vibrant Neon Green */
+    --accent-glow: rgba(0, 230, 118, 0.3);
+
+    --transition-fast: 0.2s ease;
+    --transition-mid: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    --font-ui: 'Poppins', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+    /* Subtle background texture or gradient */
+    background-image: radial-gradient(circle at 10% 10%, rgba(0, 230, 118, 0.03) 0%, transparent 40%);
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* --- MODERN SIDEBAR --- */
+.sidebar {
+    width: 320px;
+    background-color: var(--bg-panel);
+    border-right: 1px solid var(--border-color);
+    backdrop-filter: blur(12px);
+    /* Glassmorphism */
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.sidebar-header {
+    padding: 25px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-area i {
+    font-size: 1.5rem;
+    color: var(--accent-neon);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.logo-area h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.neon-text {
+    color: var(--accent-neon);
+    text-shadow: 0 0 5px var(--accent-glow);
+}
+
+.search-bar {
+    padding: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 32px;
+    color: var(--text-muted);
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 12px 12px 38px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    transition: var(--transition-fast);
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.snippet-list {
+    list-style: none;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Custom Scrollbar for List */
+.snippet-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.snippet-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+/* Snippet Item Animation */
+.snippet-item {
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+/* The Animated Left border */
+.snippet-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 0%;
+    width: 3px;
+    background-color: var(--accent-neon);
+    transition: var(--transition-mid);
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.snippet-item:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.snippet-item:hover::before {
+    height: 70%;
+    /* Smooth slide up and grow on hover */
+}
+
+.snippet-item.active {
+    background-color: rgba(0, 230, 118, 0.05);
+}
+
+.snippet-item.active::before {
+    height: 100%;
+    /* Fully active */
+}
+
+.snippet-info h4 {
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+.snippet-item:hover h4 {
+    color: var(--accent-neon);
+}
+
+.tag {
+    font-size: 0.7rem;
+    background-color: var(--border-color);
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.tag-css {
+    background-color: #264de444;
+    color: #8498ff;
+}
+
+/* Blueish */
+.tag-html {
+    background-color: #e34c2644;
+    color: #ff9176;
+}
+
+/* Orangish */
+.tag-js {
+    background-color: #f7df1e33;
+    color: #ffeb55;
+}
+
+/* Yellowish */
+
+.arrow-icon {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: var(--transition-mid);
+}
+
+.snippet-item:hover .arrow-icon,
+.snippet-item.active .arrow-icon {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--accent-neon);
+}
+
+.sidebar-footer {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- MODERN EDITOR AREA --- */
+.editor-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.editor-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(13, 17, 23, 0.8);
+}
+
+#snippet-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    outline: none;
+    width: 60%;
+    transition: var(--transition-fast);
+}
+
+#snippet-title:focus {
+    color: var(--accent-neon);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+select {
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    font-family: var(--font-ui);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+select:hover {
+    border-color: var(--text-muted);
+}
+
+/* Buttons Styling */
+.primary-btn {
+    background-color: var(--accent-neon);
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-mid);
+}
+
+.primary-btn:hover {
+    box-shadow: 0 0 15px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+}
+
+.icon-btn,
+.icon-btn-secondary {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    color: var(--accent-neon);
+    background-color: rgba(0, 230, 118, 0.1);
+}
+
+.icon-btn-secondary:hover {
+    color: var(--text-main);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Code Workspace with Syntax Style */
+.code-workspace {
+    flex-grow: 1;
+    padding: 0;
+    /* Full screen editor */
+}
+
+#code-editor {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: #98c379;
+    /* Mono Greenish color */
+    border: none;
+    padding: 25px;
+    font-family: var(--font-code);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    border-radius: 0;
+}
+
+/* Subtle Animation for Save button */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+    }
+}
+
+.pulse-anim:active {
+    animation: pulse 0.5s;
+}
+
+/* TOOLTIP SIMULATION */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: var(--transition-fast);
+    pointer-events: none;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* --- SPLIT WORKSPACE: EDITOR & PREVIEW --- */
+.code-workspace {
+    flex-grow: 1;
+    display: flex;
+    padding: 0;
+    height: calc(100vh - 80px);
+    /* Header ki height minus karke bachi hui jagah */
+}
+
+/* --- SYNTAX HIGHLIGHTING (100% FIXED) --- */
+.editor-pane {
+    flex: 1;
+    border-right: 2px solid var(--border-color);
+    position: relative;
+    background-color: #1e1e1e;
+    /* Dark background */
+}
+
+/* Dono layers ek dam barabar hone chahiye */
+#code-editor,
+#highlighting-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 25px !important;
+    border: none !important;
+    font-family: var(--font-code), 'Courier New', monospace !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    tab-size: 4;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+}
+
+/* Upar wala layer (Type karne ke liye) */
+#code-editor {
+    z-index: 2;
+    color: transparent !important;
+    /* Text adrishya */
+    background: transparent !important;
+    caret-color: #00e676;
+    /* Neon cursor */
+    resize: none;
+    outline: none;
+    overflow-y: auto !important;
+}
+
+/* Text select karne par kaisa dikhe */
+#code-editor::selection {
+    background: rgba(0, 230, 118, 0.3) !important;
+    /* Neon green highlight */
+    color: transparent !important;
+}
+
+/* Piche wala layer (Colors ke liye) */
+#highlighting-container {
+    z-index: 1;
+    pointer-events: none;
+    overflow-y: hidden !important;
+    background: transparent !important;
+}
+
+/* Prism ka extra space hatane ke liye */
+#highlighting-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+/* Preview Pane Styling */
+.preview-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    /* Output area mostly white rakhte hain taaki actual web page jaisa dikhe */
+}
+
+.preview-header {
+    background-color: var(--bg-panel);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.preview-title {
+    color: var(--text-main);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-title i {
+    color: var(--accent-neon);
+}
+
+#preview-frame {
+    width: 100%;
+    flex-grow: 1;
+    border: none;
+    background-color: #ffffff;
+}
+
+/* --- PRO RESPONSIVE DESIGN (MOBILE & TABLETS) --- */
+.mobile-toggle {
+    display: none;
+    /* Desktop par menu button nahi dikhega */
+}
+
+/* Tablets ke liye (Editor aur Preview upar-neeche) */
+@media (max-width: 950px) {
+    .code-workspace {
+        flex-direction: column;
+    }
+
+    .editor-pane,
+    .preview-pane {
+        width: 100%;
+        height: 50vh;
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+    }
+}
+
+/* Mobile Phones ke liye (Hamburger Menu Menu) */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .mobile-toggle {
+        display: flex;
+        /* Mobile par menu button show hoga */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+        background-color: var(--bg-panel);
+    }
+
+    /* Default Mobile State: List aur Search bar chhupe rahenge */
+    .sidebar .search-bar,
+    .sidebar .snippet-list,
+    .sidebar .sidebar-footer {
+        display: none;
+    }
+
+    /* Active State: Jab Menu open hoga */
+    .sidebar.open {
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(13, 17, 23, 0.98);
+        /* Deep dark background */
+        backdrop-filter: blur(15px);
+    }
+
+    /* Open hone par cheezein wapas dikhegi */
+    .sidebar.open .search-bar,
+    .sidebar.open .snippet-list,
+    .sidebar.open .sidebar-footer {
+        display: block;
+    }
+
+    /* Mobile Header Adjustments */
+    .editor-header {
+        padding: 15px;
+        flex-direction: column;
+        /* Title aur buttons upar-neeche honge */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .title-container {
+        width: 100%;
+    }
+
+    #snippet-title {
+        font-size: 1.2rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
